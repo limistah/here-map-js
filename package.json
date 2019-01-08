@@ -1,0 +1,26 @@
+{
+  "name": "here-map",
+  "version": "0.1.0",
+  "description": "Includes https://www.here.com/ JS files as scripts in the header of the page",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/limistah/here-map-js.git"
+  },
+  "keywords": [
+    "here",
+    "map",
+    "map",
+    "script",
+    "loader"
+  ],
+  "author": "Aleem Isiaka",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/limistah/here-map-js/issues"
+  },
+  "homepage": "https://github.com/limistah/here-map-js#readme"
+}
