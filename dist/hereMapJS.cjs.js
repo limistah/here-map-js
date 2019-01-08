@@ -323,7 +323,7 @@ var scriptLoader = function scriptLoader(options) {
   !interactive ? urls.splice(2, 1) : null;
   var coreURL = "http://js.api.here.com/".concat(_v, "/mapsjs-core.js");
   return getJs(coreURL).then(function () {
-    return getJs(urls, {});
+    return getJs(urls);
   }).catch(function (error) {
     console.log(error);
   });
