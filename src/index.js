@@ -8,9 +8,9 @@ const buildScriptURLs = (version = defaults.VERSION) => [
   `http://js.api.here.com/${version}/mapsjs-mapevents.js` // Events
 ];
 
-const merger = options => merge(defaults, options);
+const merger = (options) => merge(defaults, options);
 
-const scriptLoader = options => {
+const scriptLoader = (options) => {
   const _options = merger(options || {});
   const { VERSION, version, interactive } = _options;
 
@@ -23,9 +23,9 @@ const scriptLoader = options => {
 
   return getJS(coreURL)
     .then(function() {
-      return getJS(urls, {});
+      return getJS(urls);
     })
-    .catch(error => {
+    .catch((error) => {
       console.log(error);
     });
 };
