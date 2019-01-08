@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/limistah/here-map-js.git"
+    "url": "https://github.com/limistah/here-map-js"
   },
   "keywords": [
     "here",
