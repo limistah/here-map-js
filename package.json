@@ -43,7 +43,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run build && pretty-quick --staged --ignore-path ./dist"
+      "pre-commit": "npm run build && pretty-quick"
     }
   }
 }
