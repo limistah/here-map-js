@@ -317,7 +317,8 @@ var scriptLoader = function scriptLoader(options) {
 
   var VERSION = _options.VERSION,
       version = _options.version,
-      interactive = _options.interactive;
+      interactive = _options.interactive,
+      includeUI = _options.includeUI;
 
   var _v = version || VERSION;
 
