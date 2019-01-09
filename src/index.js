@@ -26,6 +26,16 @@ const scriptLoader = options => {
 
   return getJS(coreURL)
     .then(function() {
+      if (includeUI) {
+        const link = document.createElement("link");
+        link.setAttribute("rel", "stylesheet");
+        link.setAttribute("type", "text/css");
+        link.setAttribute(
+          "href",
+          `https://js.api.here.com/${_v}/mapsjs-ui.css`
+        );
+        document.getElementsByTagName("head")[0].append(link);
+      }
       return getJS(urls);
     })
     .catch(error => {

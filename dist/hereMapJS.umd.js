@@ -333,6 +333,14 @@
 	  !includeUI ? urls.splice(1, 1) : null;
 	  var coreURL = "http://js.api.here.com/".concat(_v, "/mapsjs-core.js");
 	  return getJs(coreURL).then(function () {
+	    if (includeUI) {
+	      var link = document.createElement("link");
+	      link.setAttribute("rel", "stylesheet");
+	      link.setAttribute("type", "text/css");
+	      link.setAttribute("href", "https://js.api.here.com/".concat(_v, "/mapsjs-ui.css"));
+	      document.getElementsByTagName("head")[0].append(link);
+	    }
+
 	    return getJs(urls);
 	  }).catch(function (error) {
 	    console.log(error);
