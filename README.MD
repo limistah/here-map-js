@@ -29,6 +29,8 @@ console.log(loaded); // true if it went through
 
 #### options properties
 
-##### `options.interactive` To load the map events scripts. Default true
+##### `options.interactive` To load the map events scripts. Default false
+
+##### `options.includeUI` To load the UI scripts. Default false
 
 ##### `options.version || options.VERSION` Version to be loaded. Default v3/3.0

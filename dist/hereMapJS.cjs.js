@@ -123,7 +123,9 @@ var getJs = get_1.default;
 var defaults = {
   VERSION: "v3/3.0",
   // Version of the script to load
-  interactive: true // Loads interactivity script
+  interactive: false,
+  // Loads interactivity script
+  includeUI: false // Load the default UI
 
 };
 
@@ -301,6 +303,7 @@ var merge = createCommonjsModule(function (module) {
 var buildScriptURLs = function buildScriptURLs() {
   var version = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaults.VERSION;
   return ["http://js.api.here.com/".concat(version, "/mapsjs-service.js"), // Service
+  "https://js.api.here.com/".concat(version, "/mapsjs-ui.js"), // UI
   "http://js.api.here.com/".concat(version, "/mapsjs-mapevents.js") // Events
   ];
 };
@@ -320,7 +323,9 @@ var scriptLoader = function scriptLoader(options) {
 
   var urls = buildScriptURLs(_v); // First let us remove the events if it is not needed. PERFORMANCE!!!
 
-  !interactive ? urls.splice(2, 1) : null;
+  !interactive ? urls.splice(2, 1) : null; // Removes the UI if not needed
+
+  !includeUI ? urls.splice(1, 1) : null;
   var coreURL = "http://js.api.here.com/".concat(_v, "/mapsjs-core.js");
   return getJs(coreURL).then(function () {
     return getJs(urls);
