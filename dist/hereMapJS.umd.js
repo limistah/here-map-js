@@ -306,9 +306,9 @@
 
 	var buildScriptURLs = function buildScriptURLs() {
 	  var version = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaults.VERSION;
-	  return ["http://js.api.here.com/".concat(version, "/mapsjs-service.js"), // Service
+	  return ["https://js.api.here.com/".concat(version, "/mapsjs-service.js"), // Service
 	  "https://js.api.here.com/".concat(version, "/mapsjs-ui.js"), // UI
-	  "http://js.api.here.com/".concat(version, "/mapsjs-mapevents.js") // Events
+	  "https://js.api.here.com/".concat(version, "/mapsjs-mapevents.js") // Events
 	  ];
 	};
 
@@ -331,7 +331,7 @@
 	  !interactive ? urls.splice(2, 1) : null; // Removes the UI if not needed
 
 	  !includeUI ? urls.splice(1, 1) : null;
-	  var coreURL = "http://js.api.here.com/".concat(_v, "/mapsjs-core.js");
+	  var coreURL = "https://js.api.here.com/".concat(_v, "/mapsjs-core.js");
 	  return getJs(coreURL).then(function () {
 	    if (includeUI) {
 	      var link = document.createElement("link");
