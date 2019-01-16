@@ -6,7 +6,8 @@ import merge from "merge";
 const buildScriptURLs = (version = defaults.VERSION) => [
   `https://js.api.here.com/${version}/mapsjs-service.js`, // Service
   `https://js.api.here.com/${version}/mapsjs-ui.js`, // UI
-  `https://js.api.here.com/${version}/mapsjs-mapevents.js` // Events
+  `https://js.api.here.com/${version}/mapsjs-mapevents.js`, // Events
+  `https://js.api.here.com/${version}/mapsjs-places.js` // places
 ];
 
 const merger = options => merge(defaults, options);
@@ -22,6 +23,8 @@ const scriptLoader = options => {
   !interactive ? urls.splice(2, 1) : null;
   // Removes the UI if not needed
   !includeUI ? urls.splice(1, 1) : null;
+  // Remove places if not needed
+  !includePlaces ? url.splice(3, 1) : null;
   const coreURL = `https://js.api.here.com/${_v}/mapsjs-core.js`;
 
   return getJS(coreURL)

@@ -129,8 +129,9 @@
 	  // Version of the script to load
 	  interactive: false,
 	  // Loads interactivity script
-	  includeUI: false // Load the default UI
-
+	  includeUI: false,
+	  // Load the default UI
+	  includePlaces: false
 	};
 
 	var merge = createCommonjsModule(function (module) {
@@ -308,7 +309,8 @@
 	  var version = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaults.VERSION;
 	  return ["https://js.api.here.com/".concat(version, "/mapsjs-service.js"), // Service
 	  "https://js.api.here.com/".concat(version, "/mapsjs-ui.js"), // UI
-	  "https://js.api.here.com/".concat(version, "/mapsjs-mapevents.js") // Events
+	  "https://js.api.here.com/".concat(version, "/mapsjs-mapevents.js"), // Events
+	  "https://js.api.here.com/".concat(version, "/mapsjs-places.js") // places
 	  ];
 	};
 
@@ -330,7 +332,9 @@
 
 	  !interactive ? urls.splice(2, 1) : null; // Removes the UI if not needed
 
-	  !includeUI ? urls.splice(1, 1) : null;
+	  !includeUI ? urls.splice(1, 1) : null; // Remove places if not needed
+
+	  !includePlaces ? url.splice(3, 1) : null;
 	  var coreURL = "https://js.api.here.com/".concat(_v, "/mapsjs-core.js");
 	  return getJs(coreURL).then(function () {
 	    if (includeUI) {

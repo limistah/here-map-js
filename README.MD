@@ -31,12 +31,16 @@ console.log(loaded); // true if it went through
 
 ##### `options.interactive`
 
-To load the map events scripts. Default false
+To load the map events scripts. Default `false`
 
 ##### `options.includeUI`
 
-To load the UI scripts. Default false
+To load the UI scripts. Default `false`
 
 ##### `options.version || options.VERSION`
 
 Version to be loaded. Default v3/3.0
+
+##### `options.includePlaces || options.includePlaces`
+
+To load `mapsjs-places.js` module. Default `false`
