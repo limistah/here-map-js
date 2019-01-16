@@ -335,7 +335,7 @@
 
 	  !includeUI ? urls.splice(1, 1) : null; // Remove places if not needed
 
-	  !includePlaces ? url.splice(3, 1) : null;
+	  !includePlaces ? urls.splice(3, 1) : null;
 	  var coreURL = "https://js.api.here.com/".concat(_v, "/mapsjs-core.js");
 	  return getJs(coreURL).then(function () {
 	    if (includeUI) {

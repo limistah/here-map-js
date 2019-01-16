@@ -24,7 +24,7 @@ const scriptLoader = options => {
   // Removes the UI if not needed
   !includeUI ? urls.splice(1, 1) : null;
   // Remove places if not needed
-  !includePlaces ? url.splice(3, 1) : null;
+  !includePlaces ? urls.splice(3, 1) : null;
   const coreURL = `https://js.api.here.com/${_v}/mapsjs-core.js`;
 
   return getJS(coreURL)
