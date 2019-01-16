@@ -324,7 +324,8 @@
 	  var VERSION = _options.VERSION,
 	      version = _options.version,
 	      interactive = _options.interactive,
-	      includeUI = _options.includeUI;
+	      includeUI = _options.includeUI,
+	      includePlaces = _options.includePlaces;
 
 	  var _v = version || VERSION;
 

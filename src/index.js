@@ -14,7 +14,7 @@ const merger = options => merge(defaults, options);
 
 const scriptLoader = options => {
   const _options = merger(options || {});
-  const { VERSION, version, interactive, includeUI } = _options;
+  const { VERSION, version, interactive, includeUI, includePlaces } = _options;
 
   const _v = version || VERSION;
   const urls = buildScriptURLs(_v);
