@@ -7,7 +7,9 @@ const buildScriptURLs = (version = defaults.VERSION) => [
   `https://js.api.here.com/${version}/mapsjs-service.js`, // Service
   `https://js.api.here.com/${version}/mapsjs-ui.js`, // UI
   `https://js.api.here.com/${version}/mapsjs-mapevents.js`, // Events
-  `https://js.api.here.com/${version}/mapsjs-places.js` // places
+  ...(version.includes("v3/3")
+    ? []
+    : [`https://js.api.here.com/${version}/mapsjs-places.js`]) // places
 ];
 
 const merger = options => merge(defaults, options);

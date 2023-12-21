@@ -1,7 +1,33 @@
 'use strict';
 
+function _toConsumableArray(arr) {
+  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
+}
+function _arrayWithoutHoles(arr) {
+  if (Array.isArray(arr)) return _arrayLikeToArray(arr);
+}
+function _iterableToArray(iter) {
+  if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
+}
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+}
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+  for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
+  return arr2;
+}
+function _nonIterableSpread() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
 function unwrapExports (x) {
-	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x.default : x;
+	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
 }
 
 function createCommonjsModule(fn, module) {
@@ -298,39 +324,33 @@ var merge = createCommonjsModule(function (module) {
 
 	}
 
-})(module && 'object' === 'object' && module.exports);
+})( module && 'object' === 'object' && module.exports);
 });
 
 var buildScriptURLs = function buildScriptURLs() {
   var version = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaults.VERSION;
   return ["https://js.api.here.com/".concat(version, "/mapsjs-service.js"), // Service
   "https://js.api.here.com/".concat(version, "/mapsjs-ui.js"), // UI
-  "https://js.api.here.com/".concat(version, "/mapsjs-mapevents.js"), // Events
-  "https://js.api.here.com/".concat(version, "/mapsjs-places.js") // places
-  ];
+  "https://js.api.here.com/".concat(version, "/mapsjs-mapevents.js")].concat(_toConsumableArray(version.includes("v3/3") ? [] : ["https://js.api.here.com/".concat(version, "/mapsjs-places.js")]));
 };
-
 var merger = function merger(options) {
   return merge(defaults, options);
 };
-
 var scriptLoader = function scriptLoader(options) {
   var _options = merger(options || {});
-
   var VERSION = _options.VERSION,
-      version = _options.version,
-      interactive = _options.interactive,
-      includeUI = _options.includeUI,
-      includePlaces = _options.includePlaces;
-
+    version = _options.version,
+    interactive = _options.interactive,
+    includeUI = _options.includeUI,
+    includePlaces = _options.includePlaces;
   var _v = version || VERSION;
+  var urls = buildScriptURLs(_v);
 
-  var urls = buildScriptURLs(_v); // First let us remove the events if it is not needed. PERFORMANCE!!!
-
-  !interactive ? urls.splice(2, 1) : null; // Removes the UI if not needed
-
-  !includeUI ? urls.splice(1, 1) : null; // Remove places if not needed
-
+  // First let us remove the events if it is not needed. PERFORMANCE!!!
+  !interactive ? urls.splice(2, 1) : null;
+  // Removes the UI if not needed
+  !includeUI ? urls.splice(1, 1) : null;
+  // Remove places if not needed
   !includePlaces ? urls.splice(3, 1) : null;
   var coreURL = "https://js.api.here.com/".concat(_v, "/mapsjs-core.js");
   return getJs(coreURL).then(function () {
@@ -341,9 +361,8 @@ var scriptLoader = function scriptLoader(options) {
       link.setAttribute("href", "https://js.api.here.com/".concat(_v, "/mapsjs-ui.css"));
       document.getElementsByTagName("head")[0].append(link);
     }
-
     return getJs(urls);
-  }).catch(function (error) {
+  })["catch"](function (error) {
     console.log(error);
   });
 };

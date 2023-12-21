@@ -1,357 +1,376 @@
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-	typeof define === 'function' && define.amd ? define(factory) :
-	(global = global || self, global.bundle = factory());
-}(this, function () { 'use strict';
-
-	function unwrapExports (x) {
-		return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x.default : x;
-	}
-
-	function createCommonjsModule(fn, module) {
-		return module = { exports: {} }, fn(module, module.exports), module.exports;
-	}
-
-	var util = createCommonjsModule(function (module, exports) {
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	var isArray = function isArray(v) {
-	  return Object.prototype.toString.call(v) === '[object Array]';
-	};
-	var isString = function isString(v) {
-	  return typeof v === 'string';
-	};
-	var isFunction = function isFunction(v) {
-	  return typeof v === 'function';
-	};
-
-	exports.isArray = isArray;
-	exports.isString = isString;
-	exports.isFunction = isFunction;
-	});
-
-	unwrapExports(util);
-	var util_1 = util.isArray;
-	var util_2 = util.isString;
-	var util_3 = util.isFunction;
-
-	var get_1 = createCommonjsModule(function (module, exports) {
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-
-
-	var resolved = {};
-
-	function loadScript(url, callback, errorCallback) {
-	    var invokeCallback = function invokeCallback() {
-	        resolved[url] = true;
-
-	        if ((0, util.isFunction)(callback)) {
-	            callback();
-	        }
-	    };
-
-	    if (resolved[url]) {
-	        invokeCallback();
-
-	        return;
-	    }
-
-	    var script = document.createElement('script');
-	    script.type = 'text/javascript';
-
-	    if (script.readyState) {
-	        //IE
-	        script.onreadystatechange = function () {
-	            if (script.readyState == 'loaded' || script.readyState == 'complete') {
-	                script.onreadystatechange = null;
-	                invokeCallback();
-	            }
-	        };
-	    } else {
-	        //Others
-	        script.onload = function () {
-	            invokeCallback();
-	        };
-	    }
-
-	    script.onerror = function (e) {
-	        resolved[url] = false;
-	        console.log('error', e);
-	        if ((0, util.isFunction)(errorCallback)) {
-	            errorCallback();
-	        }
-	    };
-
-	    script.src = url;
-	    var parent = document.body || document.head || document;
-	    parent.appendChild(script);
-	}
-
-	function get(src, opts) {
-	    if ((0, util.isString)(src)) {
-	        return new Promise(function (resolve, reject) {
-	            loadScript(src, function () {
-	                return resolve(true);
-	            }, function () {
-	                return reject();
-	            });
-	        });
-	    } else if ((0, util.isArray)(src)) {
-	        var p = Promise.resolve(true);
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+  typeof define === 'function' && define.amd ? define(factory) :
+  (global = global || self, global.bundle = factory());
+}(this, (function () { 'use strict';
+
+  function _toConsumableArray(arr) {
+    return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
+  }
+  function _arrayWithoutHoles(arr) {
+    if (Array.isArray(arr)) return _arrayLikeToArray(arr);
+  }
+  function _iterableToArray(iter) {
+    if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
+  }
+  function _unsupportedIterableToArray(o, minLen) {
+    if (!o) return;
+    if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+    var n = Object.prototype.toString.call(o).slice(8, -1);
+    if (n === "Object" && o.constructor) n = o.constructor.name;
+    if (n === "Map" || n === "Set") return Array.from(o);
+    if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+  }
+  function _arrayLikeToArray(arr, len) {
+    if (len == null || len > arr.length) len = arr.length;
+    for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
+    return arr2;
+  }
+  function _nonIterableSpread() {
+    throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+  }
+
+  function unwrapExports (x) {
+  	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
+  }
+
+  function createCommonjsModule(fn, module) {
+  	return module = { exports: {} }, fn(module, module.exports), module.exports;
+  }
+
+  var util = createCommonjsModule(function (module, exports) {
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  var isArray = function isArray(v) {
+    return Object.prototype.toString.call(v) === '[object Array]';
+  };
+  var isString = function isString(v) {
+    return typeof v === 'string';
+  };
+  var isFunction = function isFunction(v) {
+    return typeof v === 'function';
+  };
+
+  exports.isArray = isArray;
+  exports.isString = isString;
+  exports.isFunction = isFunction;
+  });
+
+  unwrapExports(util);
+  var util_1 = util.isArray;
+  var util_2 = util.isString;
+  var util_3 = util.isFunction;
+
+  var get_1 = createCommonjsModule(function (module, exports) {
+
+  Object.defineProperty(exports, "__esModule", {
+      value: true
+  });
+
+
+
+  var resolved = {};
+
+  function loadScript(url, callback, errorCallback) {
+      var invokeCallback = function invokeCallback() {
+          resolved[url] = true;
+
+          if ((0, util.isFunction)(callback)) {
+              callback();
+          }
+      };
+
+      if (resolved[url]) {
+          invokeCallback();
+
+          return;
+      }
+
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
+
+      if (script.readyState) {
+          //IE
+          script.onreadystatechange = function () {
+              if (script.readyState == 'loaded' || script.readyState == 'complete') {
+                  script.onreadystatechange = null;
+                  invokeCallback();
+              }
+          };
+      } else {
+          //Others
+          script.onload = function () {
+              invokeCallback();
+          };
+      }
+
+      script.onerror = function (e) {
+          resolved[url] = false;
+          console.log('error', e);
+          if ((0, util.isFunction)(errorCallback)) {
+              errorCallback();
+          }
+      };
+
+      script.src = url;
+      var parent = document.body || document.head || document;
+      parent.appendChild(script);
+  }
 
-	        src.forEach(function (url) {
-	            p = p.then(function () {
-	                return get(url);
-	            });
-	        });
+  function get(src, opts) {
+      if ((0, util.isString)(src)) {
+          return new Promise(function (resolve, reject) {
+              loadScript(src, function () {
+                  return resolve(true);
+              }, function () {
+                  return reject();
+              });
+          });
+      } else if ((0, util.isArray)(src)) {
+          var p = Promise.resolve(true);
 
-	        return p;
-	    }
+          src.forEach(function (url) {
+              p = p.then(function () {
+                  return get(url);
+              });
+          });
 
-	    throw new Error('Invalid argument for get()');
-	}
+          return p;
+      }
 
-	exports.default = get;
-	});
+      throw new Error('Invalid argument for get()');
+  }
 
-	unwrapExports(get_1);
+  exports.default = get;
+  });
 
-	var getJs = get_1.default;
+  unwrapExports(get_1);
 
-	var defaults = {
-	  VERSION: "v3/3.0",
-	  // Version of the script to load
-	  interactive: false,
-	  // Loads interactivity script
-	  includeUI: false,
-	  // Load the default UI
-	  includePlaces: false
-	};
+  var getJs = get_1.default;
 
-	var merge = createCommonjsModule(function (module) {
-	(function(isNode) {
+  var defaults = {
+    VERSION: "v3/3.0",
+    // Version of the script to load
+    interactive: false,
+    // Loads interactivity script
+    includeUI: false,
+    // Load the default UI
+    includePlaces: false
+  };
 
-		/**
-		 * Merge one or more objects 
-		 * @param bool? clone
-		 * @param mixed,... arguments
-		 * @return object
-		 */
+  var merge = createCommonjsModule(function (module) {
+  (function(isNode) {
 
-		var Public = function(clone) {
+  	/**
+  	 * Merge one or more objects 
+  	 * @param bool? clone
+  	 * @param mixed,... arguments
+  	 * @return object
+  	 */
 
-			return merge(clone === true, false, arguments);
+  	var Public = function(clone) {
 
-		}, publicName = 'merge';
+  		return merge(clone === true, false, arguments);
 
-		/**
-		 * Merge two or more objects recursively 
-		 * @param bool? clone
-		 * @param mixed,... arguments
-		 * @return object
-		 */
+  	}, publicName = 'merge';
 
-		Public.recursive = function(clone) {
+  	/**
+  	 * Merge two or more objects recursively 
+  	 * @param bool? clone
+  	 * @param mixed,... arguments
+  	 * @return object
+  	 */
 
-			return merge(clone === true, true, arguments);
+  	Public.recursive = function(clone) {
 
-		};
+  		return merge(clone === true, true, arguments);
 
-		/**
-		 * Clone the input removing any reference
-		 * @param mixed input
-		 * @return mixed
-		 */
+  	};
 
-		Public.clone = function(input) {
+  	/**
+  	 * Clone the input removing any reference
+  	 * @param mixed input
+  	 * @return mixed
+  	 */
 
-			var output = input,
-				type = typeOf(input),
-				index, size;
+  	Public.clone = function(input) {
 
-			if (type === 'array') {
+  		var output = input,
+  			type = typeOf(input),
+  			index, size;
 
-				output = [];
-				size = input.length;
+  		if (type === 'array') {
 
-				for (index=0;index<size;++index)
+  			output = [];
+  			size = input.length;
 
-					output[index] = Public.clone(input[index]);
+  			for (index=0;index<size;++index)
 
-			} else if (type === 'object') {
+  				output[index] = Public.clone(input[index]);
 
-				output = {};
+  		} else if (type === 'object') {
 
-				for (index in input)
+  			output = {};
 
-					output[index] = Public.clone(input[index]);
+  			for (index in input)
 
-			}
+  				output[index] = Public.clone(input[index]);
 
-			return output;
+  		}
 
-		};
+  		return output;
 
-		/**
-		 * Merge two objects recursively
-		 * @param mixed input
-		 * @param mixed extend
-		 * @return mixed
-		 */
+  	};
 
-		function merge_recursive(base, extend) {
+  	/**
+  	 * Merge two objects recursively
+  	 * @param mixed input
+  	 * @param mixed extend
+  	 * @return mixed
+  	 */
 
-			if (typeOf(base) !== 'object')
+  	function merge_recursive(base, extend) {
 
-				return extend;
+  		if (typeOf(base) !== 'object')
 
-			for (var key in extend) {
+  			return extend;
 
-				if (typeOf(base[key]) === 'object' && typeOf(extend[key]) === 'object') {
+  		for (var key in extend) {
 
-					base[key] = merge_recursive(base[key], extend[key]);
+  			if (typeOf(base[key]) === 'object' && typeOf(extend[key]) === 'object') {
 
-				} else {
+  				base[key] = merge_recursive(base[key], extend[key]);
 
-					base[key] = extend[key];
+  			} else {
 
-				}
+  				base[key] = extend[key];
 
-			}
+  			}
 
-			return base;
+  		}
 
-		}
+  		return base;
 
-		/**
-		 * Merge two or more objects
-		 * @param bool clone
-		 * @param bool recursive
-		 * @param array argv
-		 * @return object
-		 */
+  	}
 
-		function merge(clone, recursive, argv) {
+  	/**
+  	 * Merge two or more objects
+  	 * @param bool clone
+  	 * @param bool recursive
+  	 * @param array argv
+  	 * @return object
+  	 */
 
-			var result = argv[0],
-				size = argv.length;
+  	function merge(clone, recursive, argv) {
 
-			if (clone || typeOf(result) !== 'object')
+  		var result = argv[0],
+  			size = argv.length;
 
-				result = {};
+  		if (clone || typeOf(result) !== 'object')
 
-			for (var index=0;index<size;++index) {
+  			result = {};
 
-				var item = argv[index],
+  		for (var index=0;index<size;++index) {
 
-					type = typeOf(item);
+  			var item = argv[index],
 
-				if (type !== 'object') continue;
+  				type = typeOf(item);
 
-				for (var key in item) {
+  			if (type !== 'object') continue;
 
-					if (key === '__proto__') continue;
+  			for (var key in item) {
 
-					var sitem = clone ? Public.clone(item[key]) : item[key];
+  				if (key === '__proto__') continue;
 
-					if (recursive) {
+  				var sitem = clone ? Public.clone(item[key]) : item[key];
 
-						result[key] = merge_recursive(result[key], sitem);
+  				if (recursive) {
 
-					} else {
+  					result[key] = merge_recursive(result[key], sitem);
 
-						result[key] = sitem;
+  				} else {
 
-					}
+  					result[key] = sitem;
 
-				}
+  				}
 
-			}
+  			}
 
-			return result;
+  		}
 
-		}
+  		return result;
 
-		/**
-		 * Get type of variable
-		 * @param mixed input
-		 * @return string
-		 *
-		 * @see http://jsperf.com/typeofvar
-		 */
+  	}
 
-		function typeOf(input) {
+  	/**
+  	 * Get type of variable
+  	 * @param mixed input
+  	 * @return string
+  	 *
+  	 * @see http://jsperf.com/typeofvar
+  	 */
 
-			return ({}).toString.call(input).slice(8, -1).toLowerCase();
+  	function typeOf(input) {
 
-		}
+  		return ({}).toString.call(input).slice(8, -1).toLowerCase();
 
-		if (isNode) {
+  	}
 
-			module.exports = Public;
+  	if (isNode) {
 
-		} else {
+  		module.exports = Public;
 
-			window[publicName] = Public;
+  	} else {
 
-		}
+  		window[publicName] = Public;
 
-	})(module && 'object' === 'object' && module.exports);
-	});
+  	}
 
-	var buildScriptURLs = function buildScriptURLs() {
-	  var version = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaults.VERSION;
-	  return ["https://js.api.here.com/".concat(version, "/mapsjs-service.js"), // Service
-	  "https://js.api.here.com/".concat(version, "/mapsjs-ui.js"), // UI
-	  "https://js.api.here.com/".concat(version, "/mapsjs-mapevents.js"), // Events
-	  "https://js.api.here.com/".concat(version, "/mapsjs-places.js") // places
-	  ];
-	};
+  })( module && 'object' === 'object' && module.exports);
+  });
 
-	var merger = function merger(options) {
-	  return merge(defaults, options);
-	};
+  var buildScriptURLs = function buildScriptURLs() {
+    var version = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaults.VERSION;
+    return ["https://js.api.here.com/".concat(version, "/mapsjs-service.js"), // Service
+    "https://js.api.here.com/".concat(version, "/mapsjs-ui.js"), // UI
+    "https://js.api.here.com/".concat(version, "/mapsjs-mapevents.js")].concat(_toConsumableArray(version.includes("v3/3") ? [] : ["https://js.api.here.com/".concat(version, "/mapsjs-places.js")]));
+  };
+  var merger = function merger(options) {
+    return merge(defaults, options);
+  };
+  var scriptLoader = function scriptLoader(options) {
+    var _options = merger(options || {});
+    var VERSION = _options.VERSION,
+      version = _options.version,
+      interactive = _options.interactive,
+      includeUI = _options.includeUI,
+      includePlaces = _options.includePlaces;
+    var _v = version || VERSION;
+    var urls = buildScriptURLs(_v);
 
-	var scriptLoader = function scriptLoader(options) {
-	  var _options = merger(options || {});
+    // First let us remove the events if it is not needed. PERFORMANCE!!!
+    !interactive ? urls.splice(2, 1) : null;
+    // Removes the UI if not needed
+    !includeUI ? urls.splice(1, 1) : null;
+    // Remove places if not needed
+    !includePlaces ? urls.splice(3, 1) : null;
+    var coreURL = "https://js.api.here.com/".concat(_v, "/mapsjs-core.js");
+    return getJs(coreURL).then(function () {
+      if (includeUI) {
+        var link = document.createElement("link");
+        link.setAttribute("rel", "stylesheet");
+        link.setAttribute("type", "text/css");
+        link.setAttribute("href", "https://js.api.here.com/".concat(_v, "/mapsjs-ui.css"));
+        document.getElementsByTagName("head")[0].append(link);
+      }
+      return getJs(urls);
+    })["catch"](function (error) {
+      console.log(error);
+    });
+  };
 
-	  var VERSION = _options.VERSION,
-	      version = _options.version,
-	      interactive = _options.interactive,
-	      includeUI = _options.includeUI,
-	      includePlaces = _options.includePlaces;
+  return scriptLoader;
 
-	  var _v = version || VERSION;
-
-	  var urls = buildScriptURLs(_v); // First let us remove the events if it is not needed. PERFORMANCE!!!
-
-	  !interactive ? urls.splice(2, 1) : null; // Removes the UI if not needed
-
-	  !includeUI ? urls.splice(1, 1) : null; // Remove places if not needed
-
-	  !includePlaces ? urls.splice(3, 1) : null;
-	  var coreURL = "https://js.api.here.com/".concat(_v, "/mapsjs-core.js");
-	  return getJs(coreURL).then(function () {
-	    if (includeUI) {
-	      var link = document.createElement("link");
-	      link.setAttribute("rel", "stylesheet");
-	      link.setAttribute("type", "text/css");
-	      link.setAttribute("href", "https://js.api.here.com/".concat(_v, "/mapsjs-ui.css"));
-	      document.getElementsByTagName("head")[0].append(link);
-	    }
-
-	    return getJs(urls);
-	  }).catch(function (error) {
-	    console.log(error);
-	  });
-	};
-
-	return scriptLoader;
-
-}));
+})));
