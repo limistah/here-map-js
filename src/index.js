@@ -7,7 +7,7 @@ const buildScriptURLs = (version = defaults.VERSION) => [
   `https://js.api.here.com/${version}/mapsjs-service.js`, // Service
   `https://js.api.here.com/${version}/mapsjs-ui.js`, // UI
   `https://js.api.here.com/${version}/mapsjs-mapevents.js`, // Events
-  ...(version.includes("v3/3")
+  ...(version.includes("v3/3.1")
     ? []
     : [`https://js.api.here.com/${version}/mapsjs-places.js`]) // places
 ];

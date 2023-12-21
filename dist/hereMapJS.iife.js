@@ -332,7 +332,7 @@ var bundle = (function () {
     var version = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaults.VERSION;
     return ["https://js.api.here.com/".concat(version, "/mapsjs-service.js"), // Service
     "https://js.api.here.com/".concat(version, "/mapsjs-ui.js"), // UI
-    "https://js.api.here.com/".concat(version, "/mapsjs-mapevents.js")].concat(_toConsumableArray(version.includes("v3/3") ? [] : ["https://js.api.here.com/".concat(version, "/mapsjs-places.js")]));
+    "https://js.api.here.com/".concat(version, "/mapsjs-mapevents.js")].concat(_toConsumableArray(version.includes("v3/3.1") ? [] : ["https://js.api.here.com/".concat(version, "/mapsjs-places.js")]));
   };
   var merger = function merger(options) {
     return merge(defaults, options);
